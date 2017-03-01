@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<ul>
+		<li><a href="http://localhost:8080/foo/WSLRB?wsdl">http://localhost:8080/foo/WSLRB?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLRB?wsdl=WSLRBI.wsdl">http://localhost:8080/foo/WSLRB?wsdl=WSLRBI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSEDB?wsdl">http://localhost:8080/foo/WSEDB?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSEDB?wsdl=WSEDBI.wsdl">http://localhost:8080/foo/WSEDB?wsdl=WSEDBI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSEDW?wsdl">http://localhost:8080/foo/WSEDW?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSEDW?wsdl=WSEDWI.wsdl">http://localhost:8080/foo/WSEDW?wsdl=WSEDWI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSERB?wsdl">http://localhost:8080/foo/WSERB?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSERB?wsdl=WSERBI.wsdl">http://localhost:8080/foo/WSERB?wsdl=WSERBI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSERW?wsdl">http://localhost:8080/foo/WSERW?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSERW?wsdl=WSERWI.wsdl">http://localhost:8080/foo/WSERW?wsdl=WSERWI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLDB?wsdl">http://localhost:8080/foo/WSLDB?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLDB?wsdl=WSLDBI.wsdl">http://localhost:8080/foo/WSLDB?wsdl=WSLDBI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLDW?wsdl">http://localhost:8080/foo/WSLDW?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLDW?wsdl=WSLDWI.wsdl">http://localhost:8080/foo/WSLDW?wsdl=WSLDWI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLRB?wsdl">http://localhost:8080/foo/WSLRB?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLRB?wsdl=WSLRBI.wsdl">http://localhost:8080/foo/WSLRB?wsdl=WSLRBI.wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLRW?wsdl">http://localhost:8080/foo/WSLRW?wsdl</a></li>
+		<li><a href="http://localhost:8080/foo/WSLRW?wsdl=WSLRWI.wsdl">http://localhost:8080/foo/WSLRW?wsdl=WSLRWI.wsdl</a></li>
+	</ul>
+
+	<p>Default SoapBinding is document/literal/wrapped</p>
+
+	<p>If the style is RPC or if the style is DOCUMENT and the
+		parameter style is BARE then the partName element of
+		javax.jws.WebParam MUST refer to the wsdl:part name of the parameter,
+		and the partName element of javax.jws.WebResultMUST refer to the
+		wsdl:part name of the parameter.</p>
+
+	<p>Using non-wrapper style, message parts are mapped to Java
+		parameters according to their classification as follows:</p>
+	<ul>
+		<li>in: The message part is mapped to a method parameter.</li>
+		<li>out: The message part is mapped to amethod parameter using a
+			holder class (see section 2.3.3) or is mapped to the method return
+			type.</li>
+		<li>in/out: The message part is mapped to a method parameter
+			using a holder class</li>
+	</ul>
+
+	<p>In the absence of any customizations, the name of a mapped Java
+		method parameterMUST be the value of the name attribute of the
+		wsdl:part element mapped according to the rules described in sections
+		2.8 and 2.8.1.</p>
+
+	<p>If wrapper style is used, generated Java methods MUST be
+		annotated with a javax.xml.ws.RequestWrapper annotation. The
+		annotation MAY be omitted if all its properties would have the default
+		values.</p>
+
+	<p>If wrapper style is used, generated Java methods MUST be
+		annotated with a javax.xml.ws.ResponseWrapper annotation. The
+		annotation MAY be omitted if all its properties would have the default
+		values.</p>
+</body>
+</html>
