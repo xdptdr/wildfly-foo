@@ -4,7 +4,7 @@ import javax.jws.WebService;
 
 import local.xd.wfoo.webservices.soapbinding.i.WSERWI;
 
-@WebService(endpointInterface = "local.xd.wfoo.webservices.soapbinding.i.WSERWI")
+//@WebService(endpointInterface = "local.xd.wfoo.webservices.soapbinding.i.WSERWI")
 public class WSERW implements WSERWI {
 
 	@Override

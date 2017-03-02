@@ -9,7 +9,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
-@WebService
+//@WebService
 @SOAPBinding(use = Use.LITERAL, style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public interface WSLRWI {
 	

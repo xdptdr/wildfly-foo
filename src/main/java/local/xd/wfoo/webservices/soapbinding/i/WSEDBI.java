@@ -9,7 +9,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
-@WebService
+//@WebService
 @SOAPBinding(use = Use.ENCODED, style = Style.DOCUMENT, parameterStyle = ParameterStyle.BARE)
 public interface WSEDBI {
 

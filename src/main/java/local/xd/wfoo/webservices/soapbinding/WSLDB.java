@@ -4,7 +4,7 @@ import javax.jws.WebService;
 
 import local.xd.wfoo.webservices.soapbinding.i.WSLDBI;
 
-@WebService(endpointInterface = "local.xd.wfoo.webservices.soapbinding.i.WSLDBI")
+//@WebService(endpointInterface = "local.xd.wfoo.webservices.soapbinding.i.WSLDBI")
 public class WSLDB implements WSLDBI {
 
 	@Override
