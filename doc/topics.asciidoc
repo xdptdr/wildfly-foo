@@ -1,0 +1,173 @@
+== Chapter 1 ==
+
+* WS-I Basic Profile 1.0 and WS-I Basic Profile 1.1
+* JAX-RPC 1.0
+* JAX-WS 2.0 and JAXB 2.0
+* JAX-WS 2.1 and JAXB 2.1
+* JAX-WS 2.2 and JAXB 2.2
+* SOAP 1.1 (current) and SOAP 1.2 (supported)
+* WSDL 1.1 (current) and WSDL 2.0 (not supported)
+* JAX-WS 2.0 and JSR 181 metadata
+* JAX-WS 2.0 and JSR 109 `jaxrpc-mapping-info`
+* JAX-WS 2.0 and JSR 183 Web Services Security
+
+* Asynchrony, Non-HTTP Transports, Message Access, Session Management
+
+* Inclusion in J2SE, Handlers, **Versioning and Evolution of Web Services**
+
+* Literal preferred to Encoding ; Encoding deprecated
+** support for SOAP 1.1 encoding optional in JAX-WS 2.0
+* Service Registration and Discovery : specified by JAXR
+
+* WSDL 1.1
+
+* Annotations: JSR 181 ; JAXB ; JAX-WS 2.0
+
+* Standard protocol bindings : SOAP 1.1 and SOAP 1.2
+* Standard transport bindings : HTTP/1.1
+
+* handlers that are decoupled from the SAAJ API
+** SOAP with Attachments API for Java
+
+* Handler Context
+
+* Unified Response and Fault Handling
+** `handleResponse`
+** `handleFault`
+
+
+*A Goal : create an asynchronous web service with an executor*
+
+*A Goal : create a webservice which uses sessions (HTTP based or SOAP based ?)
+
+*A Goal : use the WS-I testing tools*
+
+*A Goal : perform WS-I Conformance Checking*
+
+*A Goal : get familiarity with the various namespaces : env, xsd, wsdl, soap, jaxb, jaxws, wsa, wsam, wsp*
+
+== Chapter 2 : WSDL 1.1 to Java Mapping ==
+
+*A Goal : Understand the following sentence :* In WSDL 1.1, the separation between the abstract port type definition and the binding to a
+protocol is not complete. Bindings impact the mapping between WSDL elements used in the abstract port
+type definition and Java method parameters.
+
+*A Goal : practice generation of classes from WSDL*
+
+[xml]
+----
+<wsdl:definitions targetNamespace="{java package mapped to URI}">
+</wsdl:definitions>
+----
+
+
+
+`jaxws:package` binding declaration
+
+*A Question : In the following sentence, what do SOAP and MIME bindings look like in a WSDL document ?* WSDL 1.1 allows extension elements and attributes to be added to many of its constructs. JAX-WS specifies
+the mapping to Java of the extensibility elements and attributes defined for the SOAP and MIME bindings.
+JAX-WS does not address mapping of any other extensibility elements or attributes and does not provide
+a standard extensibility framework though which such support could be added in a standard way. Future
+versions of JAX-WS might add additional support for standard extensions as these become available.
+
+*A Question : It seems that many WSDL documents in the wild cannot be handled correctly by JAX-WS*
+
+* javax.jws.WebService annotation : OK
+** why would I want to change these ? `name`, `serviceName`, `portName`, `wsdlLocation`
+** targetNamespace, endpointInterface : OK
+
+*A Goal : Learn of to use `XmlSeeAlso` on an example*
+
+Each `wsdl:operation` in a `wsdl:portType` is mapped to a Java method in the corresponding Java service
+endpoint interface.
+
+The name of a mapped Java method corresponds to be the value of the name attribute of the `wsdl:operation`.
+
+*A Goal : learn how to use `jaxws:method` on an example*
+
+* `javax.jws.WebMethod` : OK
+** `operationName`, `exclude`
+** `action` : What is that for ?
+
+* `javax.jws.OneWay` : OK
+** Is that used often in practice ?
+
+Mapping of `notification` and `solicit-response` operations is out of scope.
+
+Each `wsdl:operation` refers to one or more `wsdl:message` elements via child `wsdl:input`, `wsdl
+:output`, and `wsdl:fault` elements that describe the input, output, and fault messages for the operation
+respectively.
+
+*A Goal: experiment with services that generate a fault*
+
+The contents of input and output messages are mapped to Java method parameters using two different styles: non-wrapper style and wrapper style.
+
+*A Goal : experiment with non-wrapper style and wrapper style*
+
+*A Question : which style is preferred ?*
+
+* `javax.jws.SOAPBinding`
+** `style`
+** `use`
+** `parameterStyle`
+
+*A Goal : experiment with various SOAPBinding*
+
+* `javax.jws.WebParam`
+** `name` : ok
+** `partName` : what's that ?
+** `targetNamespace` : why change the namespace ?
+** `mode` : ok
+** `header`
+
+*A Goal : understand what `javax.xml.ws.Action` is for*
+
+*A Goal : understand the following annotations through examples:*
+
+* `javax.xml.bind.annotation.XmlAttachmentRef`
+* `javax.xml.bind.annotation.XmlList`
+* `javax.xml.bind.annotation.XmlMimeType`
+* `javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter`
+
+*A Goal : understand `jaxws:parameter` through example*
+
+*A Goal : understand `jaxws:enableWrapperStyle` through example*
+
+*A Goal : understand the following annotations through examples:*
+
+* `javax.xml.ws.RequestWrapper`
+* `javax.xml.ws.ResponseWrapper`
+
+and their attributes `localName`, `targetNamespace`, `className`, `partName`
+
+*A goal : use the `parameterOrder` attribute*
+
+*A goal : play with `javax.xml.ws.Holder`*
+
+*A goal : use `jaxws:enableAsyncMapping`*
+
+*A goal : make `javax.xml.ws.Response` and `javax.xml.ws.AsyncHandler` work*
+
+*A goal : use `jaxws:method`*
+
+*A goal : experiment with asynchronous methods which throw exceptions*
+
+In the absence of user customizations, an implementation MUST use the JAXB class based mapping with generateValueClass set to true and generateElementClass set to false when mapping WSDL types to Java.
+
+*A Question: What are these `generateValueClass` and `generateElementClass` ?*
+
+In addition, for ease of use, JAX-WS strips any JAXBElement<T> wrapper off the type of a method parameter if the normal JAXB mapping would result in one. E.g. a parameter that JAXB would map to
+JAXBElement<Integer> is instead be mapped to Integer.
+
+*A Goal : experiment with `javax.xml.bind.JAXBElement`*
+
+JAXB provides support for the SOAP MTOM[29]/XOP[30] mechanism for optimizing transmission of binary
+data types. (p22)
+
+*A Goal : Experiment with SOAP MTOM and XOP*
+
+*A Goal : understand this thing about `wsa:EndpointReference` (p22-23)*
+
+*A Goal : use `javax.xml.ws.WebFault`*
+
+Stopped at section 2.6.
