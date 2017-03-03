@@ -1,17 +1,25 @@
 package local.xd.wfoo.webservices.i;
 
+import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebParam.Mode;
+import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.xml.ws.Action;
 import javax.xml.ws.Holder;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
+import javax.xml.ws.WebFault;
 
 @WebService
+@SOAPBinding
 public interface WFooI {
 
-	String hello();
+	@WebMethod
+	@WebResult
+	@Action
+	@RequestWrapper
+	@ResponseWrapper
+	int twice(@WebParam(name = "a") Holder<Integer> a);
 
-	int addThree(@WebParam(name = "a", mode = Mode.IN) int a, @WebParam(name = "b", mode = Mode.OUT) Holder<Integer> b,
-			@WebParam(name = "c", mode = Mode.INOUT) Holder<Integer> c);
-
-	Integer twice(Integer a);
 }
