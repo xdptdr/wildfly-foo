@@ -9,10 +9,11 @@ import javax.xml.ws.Action;
 import javax.xml.ws.Holder;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
-import javax.xml.ws.WebFault;
+import javax.xml.ws.soap.MTOM;
 
 @WebService
 @SOAPBinding
+@MTOM
 public interface WFooI {
 
 	@WebMethod

@@ -1,7 +1,6 @@
 package local.xd.wfoo.webservices;
 
 import javax.jws.WebService;
-import javax.xml.bind.JAXBElement;
 import javax.xml.ws.Holder;
 
 import local.xd.wfoo.webservices.i.WFooI;
