@@ -23,4 +23,8 @@ public interface WFooI {
 	@ResponseWrapper
 	int twice(@WebParam(name = "a") Holder<Integer> a);
 
+	@WebMethod
+	@WebResult
+	String byteToString(@WebParam(name = "p") Holder<byte[]> p);
+
 }

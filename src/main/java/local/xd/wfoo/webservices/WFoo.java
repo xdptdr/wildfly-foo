@@ -14,4 +14,9 @@ public class WFoo implements WFooI {
 		return 2 * a.value;
 	}
 
+	@Override
+	public String byteToString(Holder<byte[]> p) {
+		return new String(p.value);
+	}
+
 }

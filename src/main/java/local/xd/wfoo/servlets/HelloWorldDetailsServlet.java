@@ -85,12 +85,20 @@ public class HelloWorldDetailsServlet extends HttpServlet {
 	}
 
 	private void doWork(HttpServletRequest req, HttpServletResponse resp) throws IOException, SOAPException {
+
+		boolean mtom = req.getParameter("mtom") != null;
+
 		resp.setContentType("text/plain;charset=UTF-8");
 		PrintWriter writer = resp.getWriter();
 
 		URL url = new URL("http://localhost:8080/foo/WFoo?wsdl");
 		QName name = new QName("http://webservices.wfoo.xd.local/", "WFooService");
-		Service s = Service.create(url, name, new MTOMFeature());
+		Service s = null;
+		if (!mtom) {
+			s = Service.create(url, name, new MTOMFeature());
+		} else {
+			s = Service.create(url, name);
+		}
 		WFooI port = s.getPort(WFooI.class);
 
 		BindingProvider bp = (BindingProvider) port;
@@ -99,7 +107,7 @@ public class HelloWorldDetailsServlet extends HttpServlet {
 		chain.add(new SOAPLoggingHandler(writer));
 		bp.getBinding().setHandlerChain(chain);
 
-		writer.println(port.twice(new Holder<Integer>(2)));
+		writer.println(port.byteToString(new Holder<byte[]>("helloyoupi".getBytes())));
 
 	}
 
